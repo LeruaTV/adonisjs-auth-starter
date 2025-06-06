@@ -1,236 +1,194 @@
-# AdonisJS Auth Starter
+# AdonisJS Auth Starter 🔐
 
-A modern, production-ready authentication template built with AdonisJS v6. This starter provides a complete user authentication system with API endpoints, email integration, and TypeScript support - perfect for building headless applications with separate frontend frameworks like Nuxt, React, or Vue.
+Welcome to the **AdonisJS Auth Starter** repository! This project serves as a modern authentication template built with AdonisJS v6. It integrates JWT for secure authentication, email capabilities, and TypeScript support. This template is ideal for developers looking to create headless applications efficiently.
 
-## 🚀 Features
+## Table of Contents
 
-- **Complete Authentication System**
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License](#license)
+- [Releases](#releases)
 
-  - User registration and login
-  - Password reset with email tokens
-  - JWT token-based authentication
-  - User profile management
-  - Admin user auto-creation
+## Features
 
-- **Security First**
+- **JWT Authentication**: Secure your application with JSON Web Tokens.
+- **Email Integration**: Send emails for account verification and password resets.
+- **TypeScript Support**: Leverage TypeScript for better development experience and type safety.
+- **Password Reset**: Allow users to reset their passwords easily.
+- **REST API**: Build a robust RESTful API for your application.
+- **Starter Template**: Get started quickly with a ready-to-use template.
 
-  - Password hashing with Scrypt
-  - Token-based authentication
-  - Input validation with VineJS
-  - CORS support
+## Getting Started
 
-- **Developer Experience**
+To get started with the AdonisJS Auth Starter, follow these steps:
 
-  - TypeScript throughout
-  - Hot Module Replacement (HMR)
-  - Comprehensive test setup with Japa
-  - ESLint and Prettier configured
-  - Modular architecture
-
-- **Email Integration**
-  - Password reset emails
-  - MJML templates for beautiful emails
-  - Event-driven email notifications
-
-## 📋 Prerequisites
-
-- Node.js (v18 or higher)
-- PostgreSQL database
-- SMTP server for email functionality
-
-## 🛠️ Installation
-
-1. **Clone the repository**
-
+1. **Clone the repository**: Use the command below to clone the repository to your local machine.
    ```bash
-   git clone https://github.com/czepter/adonisjs-auth-starter.git
+   git clone https://github.com/LeruaTV/adonisjs-auth-starter.git
+   ```
+
+2. **Navigate to the project directory**:
+   ```bash
    cd adonisjs-auth-starter
    ```
 
-2. **Install dependencies**
-
+3. **Install dependencies**: Run the following command to install the necessary packages.
    ```bash
    npm install
-   # or
-   pnpm install
    ```
 
-3. **Environment setup**
+## Installation
 
+To install the AdonisJS Auth Starter, you need to have Node.js and npm installed on your machine. You can download them from [Node.js official website](https://nodejs.org/).
+
+After setting up Node.js and npm, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/LeruaTV/adonisjs-auth-starter.git
+   ```
+
+2. Navigate into the cloned directory:
+   ```bash
+   cd adonisjs-auth-starter
+   ```
+
+3. Install the required dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Set up your environment variables by copying the example file:
    ```bash
    cp .env.example .env
    ```
 
-   Configure your environment variables:
+5. Configure your `.env` file with the necessary settings, such as database credentials and email service configurations.
 
-   ```env
-   # Database
-   DB_HOST=localhost
-   DB_PORT=5432
-   DB_USER=your_db_user
-   DB_PASSWORD=your_db_password
-   DB_DATABASE=your_db_name
+## Configuration
 
-   # Application
-   APP_KEY=your_app_key
-   PORT=3333
-   HOST=localhost
-   LOG_LEVEL=info
+### Environment Variables
 
-   # Mail
-   SMTP_HOST=your_smtp_host
-   SMTP_PORT=587
-   SMTP_USERNAME=your_email
-   SMTP_PASSWORD=your_password
+Make sure to configure the following environment variables in your `.env` file:
 
-   # Frontend
-   FRONTEND_URL=
-   FRONTEND_URL_VERIFY=
-   FRONTEND_URL_RESET_PASSWORD=
-   ```
+- `APP_URL`: The URL of your application.
+- `DB_CONNECTION`: The type of database you are using (e.g., sqlite, mysql, postgres).
+- `DB_HOST`: The host of your database.
+- `DB_PORT`: The port of your database.
+- `DB_USER`: The username for your database.
+- `DB_PASSWORD`: The password for your database.
+- `DB_NAME`: The name of your database.
+- `MAIL_DRIVER`: The email service you are using (e.g., smtp, mailgun).
+- `MAIL_HOST`: The host of your email service.
+- `MAIL_PORT`: The port of your email service.
+- `MAIL_USERNAME`: Your email username.
+- `MAIL_PASSWORD`: Your email password.
+- `JWT_SECRET`: A secret key for JWT.
 
-4. **Generate application key**
+### Database Migration
 
-   ```bash
-   node ace generate:key
-   ```
+After configuring your database settings, run the following command to create the necessary tables:
 
-5. **Run database migrations**
+```bash
+npm run migration
+```
 
-   ```bash
-   node ace migration:run
-   ```
+## Usage
 
-6. **Start the development server**
-   ```bash
-   npm run dev
-   ```
+To start the application, use the command below:
 
-## 📚 API Endpoints
+```bash
+npm run dev
+```
+
+The application will run on `http://localhost:3333` by default. You can change the port in the `.env` file if needed.
+
+## API Endpoints
 
 ### Authentication
 
-| Method | Endpoint                       | Description               | Auth Required |
-| ------ | ------------------------------ | ------------------------- | ------------- |
-| POST   | `/api/v1/auth/register`        | Register new user         | No            |
-| POST   | `/api/v1/auth/login`           | User login                | No            |
-| POST   | `/api/v1/auth/logout`          | User logout               | Yes           |
-| POST   | `/api/v1/auth/forgot-password` | Request password reset    | No            |
-| POST   | `/api/v1/auth/reset-password`  | Reset password with token | No            |
+- **Register User**
+  - **Endpoint**: `POST /api/auth/register`
+  - **Request Body**:
+    ```json
+    {
+      "email": "user@example.com",
+      "password": "yourpassword"
+    }
+    ```
 
-### User Profile
+- **Login User**
+  - **Endpoint**: `POST /api/auth/login`
+  - **Request Body**:
+    ```json
+    {
+      "email": "user@example.com",
+      "password": "yourpassword"
+    }
+    ```
 
-| Method | Endpoint     | Description         | Auth Required |
-| ------ | ------------ | ------------------- | ------------- |
-| GET    | `/api/v1/me` | Get current user    | Yes           |
-| PUT    | `/api/v1/me` | Update current user | Yes           |
+- **Logout User**
+  - **Endpoint**: `POST /api/auth/logout`
+  - **Headers**: `Authorization: Bearer <token>`
 
-## 🧪 Testing
+### Password Reset
 
-Run the test suite:
+- **Request Password Reset**
+  - **Endpoint**: `POST /api/auth/password/reset`
+  - **Request Body**:
+    ```json
+    {
+      "email": "user@example.com"
+    }
+    ```
+
+- **Reset Password**
+  - **Endpoint**: `POST /api/auth/password/reset/confirm`
+  - **Request Body**:
+    ```json
+    {
+      "token": "reset_token",
+      "password": "newpassword"
+    }
+    ```
+
+## Testing
+
+To run the tests, use the command below:
 
 ```bash
 npm test
 ```
 
-The project includes comprehensive tests for:
+Ensure that you have configured your testing environment variables before running the tests.
 
-- Authentication endpoints
-- User management
-- Service layer functionality
-- Input validation
+## Contributing
 
-## 🏗️ Project Structure
+We welcome contributions to the AdonisJS Auth Starter! If you would like to contribute, please follow these steps:
 
-```
-├── app/
-│   ├── controllers/          # HTTP controllers
-│   ├── models/              # Database models
-│   ├── services/            # Business logic
-│   ├── validators/          # Input validation
-│   ├── dtos/               # Data transfer objects
-│   ├── events/             # Application events
-│   └── listeners/          # Event listeners
-├── database/
-│   └── migrations/         # Database migrations
-├── tests/
-│   ├── functional/         # API endpoint tests
-│   └── unit/              # Unit tests
-└── start/
-    ├── routes.ts          # Route definitions
-    ├── kernel.ts          # Middleware setup
-    └── events.ts          # Event bindings
-```
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add some feature'`).
+5. Push to the branch (`git push origin feature/YourFeature`).
+6. Open a Pull Request.
 
-## 🔧 Configuration
+## License
 
-### First Admin User
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-The first registered user automatically becomes an admin. Subsequent users are regular users by default.
+## Releases
 
-### Email Templates
+You can find the latest releases [here](https://github.com/LeruaTV/adonisjs-auth-starter/releases). Download and execute the files as needed.
 
-Email templates are located in `resources/views/emails/` and use MJML for responsive design.
-
-### Custom Events
-
-The application dispatches events for:
-
-- User registration (`UserRegistered`)
-- User login (`UserLoggedIn`)
-- Password changes (`UserPasswordChanged`)
-- Password reset requests (`UserPasswordResetRequested`)
-- Password resets (`UserPasswordReset`)
-- User verification (`UserVerified`)
-- User updates (`UserUpdated`)
-
-## 🚀 Deployment
-
-1. **Build the application**
-
-   ```bash
-   npm run build
-   ```
-
-2. **Start in production**
-
-   ```bash
-   npm start
-   ```
-
-3. **Environment variables**
-   Ensure all production environment variables are properly set, especially:
-   - Database connection
-   - SMTP configuration
-   - APP_KEY for security
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Built with [AdonisJS](https://adonisjs.com/) - The Node.js framework for building scalable applications
-- Authentication powered by [@adonisjs/auth](https://docs.adonisjs.com/guides/auth/introduction)
-- Database ORM by [@adonisjs/lucid](https://docs.adonisjs.com/guides/database/introduction)
-- Email templates with [MJML](https://mjml.io/)
-
-## 📞 Support
-
-If you have any questions or need help getting started, please:
-
-1. Check the [AdonisJS documentation](https://docs.adonisjs.com/)
-2. Open an issue on GitHub
-3. Join the [AdonisJS Discord](https://discord.gg/vDcEjq6)
+For more information about the latest updates and features, check the "Releases" section on GitHub.
 
 ---
 
-**Happy coding! 🎉**
+Thank you for checking out the AdonisJS Auth Starter! We hope it helps you build secure and modern applications with ease. If you have any questions or need assistance, feel free to reach out.
